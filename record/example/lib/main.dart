@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart' as ap;
-import 'package:record/record.dart';
 import 'package:record_example/audio_player.dart';
+import 'package:record/record.dart';
 
 class AudioRecorder extends StatefulWidget {
   final void Function(String path) onStop;
@@ -13,6 +13,9 @@ class AudioRecorder extends StatefulWidget {
   @override
   _AudioRecorderState createState() => _AudioRecorderState();
 }
+
+
+// /Users/mincheung/Desktop/record/record/example/lib/main.dart
 
 class _AudioRecorderState extends State<AudioRecorder> {
   bool _isRecording = false;
@@ -27,6 +30,8 @@ class _AudioRecorderState extends State<AudioRecorder> {
   void initState() {
     _isRecording = false;
     super.initState();
+
+    _start();
   }
 
   @override
@@ -70,11 +75,11 @@ class _AudioRecorderState extends State<AudioRecorder> {
     late Color color;
 
     if (_isRecording || _isPaused) {
-      icon = Icon(Icons.stop, color: Colors.red, size: 30);
+      icon = Icon(Icons.stop, color: Colors.green, size: 30);
       color = Colors.red.withOpacity(0.1);
     } else {
       final theme = Theme.of(context);
-      icon = Icon(Icons.mic, color: theme.primaryColor, size: 30);
+      icon = Icon(Icons.mic, color: theme.primaryColor, size: 70);
       color = theme.primaryColor.withOpacity(0.1);
     }
 
@@ -104,7 +109,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
       color = Colors.red.withOpacity(0.1);
     } else {
       final theme = Theme.of(context);
-      icon = Icon(Icons.play_arrow, color: Colors.red, size: 30);
+      icon = Icon(Icons.play_arrow, color: Colors.blue, size: 30);
       color = theme.primaryColor.withOpacity(0.1);
     }
 
@@ -247,6 +252,15 @@ class _MyAppState extends State<MyApp> {
                       audioSource = ap.AudioSource.uri(Uri.parse(path));
                       showPlayer = true;
                     });
+
+                    print("audioSource: " + audioSource.toString());
+                    // Instance of 'ProgressiveAudioSource'
+
+                    print(path);
+
+                    // POST path.toString() m4a to firebase
+                    // file:///Users/mincheung/Library/Developer/CoreSimulator/Devices/1E9E405C-A418-4251-B447-CB141F096EB3/data/Containers/Data/Application/D6E698
+                    // A7-C436-43BF-9528-C763D835B3BF/tmp/E9154497-3A91-4D15-BFD7-53CC78139308.m4a
                   },
                 ),
         ),
